@@ -19,6 +19,7 @@ import { useTVPanEvent } from './src/components/PanEvent/useTVPanEvent';
 import { SpatialNavigationDeviceTypeProvider } from '../lib/src/spatial-navigation/context/DeviceContext';
 import { ListWithVariableSize } from './src/pages/ListWithVariableSize';
 import { AsynchronousContent } from './src/pages/AsynchronousContent';
+import { AudioLanguageProvider } from './src/components/AudioLanguageContext'; // Pfc8f
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -78,20 +79,22 @@ function App() {
     <NavigationContainer>
       <ThemeProvider theme={theme}>
         <SpatialNavigationDeviceTypeProvider>
-          <Container width={width} height={height}>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                contentStyle: {
-                  backgroundColor: theme.colors.background.main,
-                },
-              }}
-              initialRouteName="TabNavigator"
-            >
-              <Stack.Screen name="TabNavigator" component={TabNavigator} />
-              <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
-            </Stack.Navigator>
-          </Container>
+          <AudioLanguageProvider> {/* Pdbff */}
+            <Container width={width} height={height}>
+              <Stack.Navigator
+                screenOptions={{
+                  headerShown: false,
+                  contentStyle: {
+                    backgroundColor: theme.colors.background.main,
+                  },
+                }}
+                initialRouteName="TabNavigator"
+              >
+                <Stack.Screen name="TabNavigator" component={TabNavigator} />
+                <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
+              </Stack.Navigator>
+            </Container>
+          </AudioLanguageProvider> {/* Pdbff */}
         </SpatialNavigationDeviceTypeProvider>
       </ThemeProvider>
     </NavigationContainer>

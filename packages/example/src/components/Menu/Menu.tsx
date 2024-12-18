@@ -5,7 +5,7 @@ import {
   SpatialNavigationView,
 } from 'react-tv-space-navigation';
 import { useMenuContext } from './MenuContext';
-import { Fragment, useCallback, useEffect, useRef } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, Platform, View } from 'react-native';
 import styled from '@emotion/native';
 import { Typography } from '../../design-system/components/Typography';
@@ -16,6 +16,7 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { MenuButton } from './MenuButton';
 import { IconName } from '../../design-system/helpers/IconsCatalog';
 import { RootTabParamList } from '../../../App';
+import { AudioSettingsModal } from '../modals/AudioSettingsModal';
 
 const windowDimensions = Dimensions.get('window');
 const MenuItem = ({
@@ -96,6 +97,9 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
       useNativeDriver: false,
     }).start();
   }, [animatedWidth, isMenuOpen, theme.sizes.menu.closed, theme.sizes.menu.open]);
+
+  const [isAudioSettingsModalVisible, setAudioSettingsModalVisible] = useState(false);
+
   return (
     <SpatialNavigationRoot
       isActive={isMenuOpen}
@@ -124,11 +128,22 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
                     </Fragment>
                   );
                 })}
+                <MenuItem
+                  label="Audio Settings"
+                  icon="Volume2"
+                  isMenuOpen={isMenuOpen}
+                  isActive={false}
+                  onSelect={() => setAudioSettingsModalVisible(true)}
+                />
               </View>
             </DefaultFocus>
           </MenuContainer>
         </SpatialNavigationView>
       </AbsoluteMenuContainer>
+      <AudioSettingsModal
+        isModalVisible={isAudioSettingsModalVisible}
+        setIsModalVisible={setAudioSettingsModalVisible}
+      />
     </SpatialNavigationRoot>
   );
 };

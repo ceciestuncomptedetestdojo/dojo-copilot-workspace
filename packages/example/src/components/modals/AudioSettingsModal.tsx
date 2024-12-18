@@ -1,33 +1,31 @@
+import React from 'react';
 import { DefaultFocus } from '../../../../lib/src/spatial-navigation/context/DefaultFocusContext';
 import { Button } from '../../design-system/components/Button';
 import { Spacer } from '../../design-system/components/Spacer';
 import { Modal } from './Modal';
 import { useAudioLanguage } from '../AudioLanguageContext';
 
-interface SubtitlesModalProps {
+interface AudioSettingsModalProps {
   isModalVisible: boolean;
   setIsModalVisible: (isVisible: boolean) => void;
-  setSubtitles: (subtitles: string) => void;
 }
 
-export const SubtitlesModal = ({
+export const AudioSettingsModal = ({
   isModalVisible,
   setIsModalVisible,
-  setSubtitles,
-}: SubtitlesModalProps) => {
+}: AudioSettingsModalProps) => {
   const { setAudioLanguage } = useAudioLanguage();
 
   return (
     <Modal
       isModalVisible={isModalVisible}
       hideModal={() => setIsModalVisible(false)}
-      title={'Choose subtitles'}
+      title={'Choose audio language'}
     >
       <DefaultFocus>
         <Button
           label="English"
           onSelect={() => {
-            setSubtitles('English');
             setAudioLanguage('English');
             setIsModalVisible(false);
           }}
@@ -37,7 +35,6 @@ export const SubtitlesModal = ({
       <Button
         label="Spanish"
         onSelect={() => {
-          setSubtitles('Spanish');
           setAudioLanguage('Spanish');
           setIsModalVisible(false);
         }}
@@ -46,7 +43,6 @@ export const SubtitlesModal = ({
       <Button
         label="Portuguese"
         onSelect={() => {
-          setSubtitles('Portuguese');
           setAudioLanguage('Portuguese');
           setIsModalVisible(false);
         }}
@@ -55,7 +51,6 @@ export const SubtitlesModal = ({
       <Button
         label="None"
         onSelect={() => {
-          setSubtitles('No');
           setAudioLanguage('None');
           setIsModalVisible(false);
         }}
