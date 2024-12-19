@@ -10,14 +10,17 @@ import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTit
 import { Button } from '../design-system/components/Button';
 import { useState } from 'react';
 import { SubtitlesModal } from '../components/modals/SubtitlesModal';
+import { QualityModal } from '../components/modals/QualityModal';
 
 export const ProgramDetail = ({
   route,
 }: {
   route: RouteProp<RootStackParamList, 'ProgramDetail'>;
 }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSubtitlesModalVisible, setIsSubtitlesModalVisible] = useState(false);
+  const [isQualityModalVisible, setIsQualityModalVisible] = useState(false);
   const [subtitles, setSubtitles] = useState('No');
+  const [quality, setQuality] = useState('1080p');
   const { programInfo } = route.params;
 
   return (
@@ -43,7 +46,9 @@ export const ProgramDetail = ({
               {/* eslint-disable-next-line no-console */}
               <Button label="More info" onSelect={() => console.log('More info!')} />
               <Spacer gap="$8" />
-              <Button label={`${subtitles} subtitles`} onSelect={() => setIsModalVisible(true)} />
+              <Button label={`${subtitles} subtitles`} onSelect={() => setIsSubtitlesModalVisible(true)} />
+              <Spacer gap="$8" />
+              <Button label={`${quality} quality`} onSelect={() => setIsQualityModalVisible(true)} />
             </Box>
           </DefaultFocus>
         </Container>
@@ -51,9 +56,14 @@ export const ProgramDetail = ({
         <ProgramListWithTitle title="You may also like..."></ProgramListWithTitle>
       </Box>
       <SubtitlesModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
+        isModalVisible={isSubtitlesModalVisible}
+        setIsModalVisible={setIsSubtitlesModalVisible}
         setSubtitles={setSubtitles}
+      />
+      <QualityModal
+        isModalVisible={isQualityModalVisible}
+        setIsModalVisible={setIsQualityModalVisible}
+        setQuality={setQuality}
       />
     </Page>
   );
